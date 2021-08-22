@@ -10,6 +10,11 @@ const userSchema = mongoose.Schema({
     required: true,
     unique: true,
   },
+  type: {
+    type: Number,
+    require: true,
+    default: 3,
+  },
 });
 
 mongoose.model("User", userSchema);
