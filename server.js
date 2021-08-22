@@ -1,24 +1,18 @@
-import morgan from "morgan"
-import express from "express"
-import path from "path"
-import dotenv from "dotenv"
-import connectDB  from "./config/db"
+const express = require("express");
+const connectDB = require("./config/db");
+const PORT = process.env.PORT || 4000;
+const authRoutes = require("./auth/routes/authRoutes");
 
-dotenv.config()
+console.log(authRoutes);
 
 connectDB();
 
 const app = express();
 
-if(process.env.NODE_ENV === "development"){
-    app.use(morgan("dev"));
-}
-
-app.use(express.json())
+app.use(express.json());
+app.use("/auth", authRoutes);
 
 app.listen(
-    PORT,
-    console.log(
-        `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`
-    )
+  PORT,
+  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
 );
